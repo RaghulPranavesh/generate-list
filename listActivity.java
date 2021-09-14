@@ -105,7 +105,7 @@ public class listActivity<Engineers> extends AppCompatActivity {
                 list.append("*ENGINEERS platoon*\n\n");
 
                 int i = 0;
-                for (String name : Engineers_completed) {  //add the serial number
+                for (String name : Engineers_completed) {
 
                     list.append(++i + ") " + name + '\n');
                 }
@@ -128,6 +128,8 @@ public class listActivity<Engineers> extends AppCompatActivity {
 
                     list.append(++k + ") " + name + '\n');
                 }
+
+                list.append("\n\n");
             }
 
             @Override
@@ -148,7 +150,7 @@ public class listActivity<Engineers> extends AppCompatActivity {
                 } else if(cadet_status.equals("NOT COMPLETED")) {
 
                     EME_not_completed.add(dataSnapshot.getKey());
-                    EME_seniors.add(dataSnapshot.child("senior").getValue().toString());   //receive seniors name
+                    EME_seniors.add(dataSnapshot.child("senior").getValue().toString());
 
                 } else if(cadet_status.equals("NOT RESPONDED")) {
 
@@ -196,7 +198,7 @@ public class listActivity<Engineers> extends AppCompatActivity {
                     list.append(++k + ") " + name + '\n');
                 }
 
-                list.append("\n");
+                list.append("\n\n");
             }
 
             @Override
