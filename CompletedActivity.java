@@ -108,10 +108,6 @@ public class CompletedActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_completed);
 
-//        Intent intent = getIntent();
-//        platoon = intent.getStringExtra("platoon");
-//        name = intent.getStringExtra("name");
-
         senior_desc = findViewById(R.id.senior_desc);
         senior_name = findViewById(R.id.senior);
         status = findViewById(R.id.status);
@@ -122,23 +118,24 @@ public class CompletedActivity extends AppCompatActivity {
         platoon = isLoggedIn.getString("platoon", " ");
 
 
-            database.getReference().child("all_users").child(platoon).child(name).child("status").addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+        database.getReference().child("all_users").child(platoon).child(name).child("status").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                    cadet_status = dataSnapshot.getValue().toString();
+                cadet_status = dataSnapshot.getValue().toString();
 
-                    if (!cadet_status.equals("NOT RESPONDED")) {
+                if (!cadet_status.equals("NOT RESPONDED")) {
 
-                        Responded();
-                    }
+                    Responded();
                 }
+            }
 
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                }
-            });
+            }
+        });
+
 
     }
     public void Responded(){
@@ -146,9 +143,7 @@ public class CompletedActivity extends AppCompatActivity {
         senior_desc.setVisibility(View.INVISIBLE);
         senior_name.setVisibility(View.INVISIBLE);
         status.setVisibility(View.INVISIBLE);
-        if(cadet_status.equals("ERROR")){
-            textView.setText("YOU HAVE LOGGED IN AS ANOTHER CADET, PLEASE LOG IN BACK AS YOURSELF!");
-        }
+
         textView.setText("YOU HAVE RESPONDED - " + cadet_status + " - FOR TODAY :)");
 
         Button completed = findViewById(R.id.completed);
@@ -196,16 +191,11 @@ public class CompletedActivity extends AppCompatActivity {
         String name_of_senior = senior_name.getText().toString();
         name_of_senior = name_of_senior.trim();
 
-        //perform regex of senior names
-        Pattern P = Pattern.compile("[A-Za-z]*$");
-        Matcher M = P.matcher(name_of_senior);
-        Boolean b = M.matches();
-
         if(name_of_senior.length() == 0){
 
             Toast.makeText(this, "PLEASE RECEIVE PERMISSION FROM A SENIOR CADET", Toast.LENGTH_LONG).show();
-        }
-        else{
+
+        } else{
 
             //Thank you for updating
             Intent intent = new Intent(getApplicationContext(), thankyouActivity.class);
